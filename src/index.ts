@@ -6,6 +6,7 @@ import morgan from "morgan";
 
 // router
 import AuthRoutes from "./routes/authRouter";
+import TeacherRoutes from "./routes/teacherRoutes";
 
 // common
 import HttpException from "./utils/HttpException";
@@ -37,7 +38,8 @@ class App {
       res.send("Typescript Express App");
     });
 
-    this.app.use("/auth", AuthRoutes);
+    this.app.use("/v1/auth", AuthRoutes);
+    this.app.use("/v1/teacher", TeacherRoutes);
   }
 
   protected Handler404(): void {

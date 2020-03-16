@@ -6,10 +6,12 @@ module.exports = (sequelize, DataTypes) => {
       teacher_id: DataTypes.INTEGER,
       email: DataTypes.STRING,
       password: DataTypes.STRING,
+      pin: DataTypes.STRING,
       photo: DataTypes.STRING,
       role: {
         type: DataTypes.ENUM,
-        values: ["admin", "superadmin"]
+        values: ["admin", "superadmin"],
+        defaultValue: "admin"
       }
     },
     {

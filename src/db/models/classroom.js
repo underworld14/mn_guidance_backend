@@ -1,17 +1,20 @@
 "use strict";
 module.exports = (sequelize, DataTypes) => {
-  const hostel = sequelize.define(
-    "hostel",
+  const classroom = sequelize.define(
+    "classroom",
     {
       teacher_id: DataTypes.INTEGER,
-      name: DataTypes.STRING
+      name: DataTypes.STRING,
+      place: DataTypes.STRING
     },
     {
       underscored: true
     }
   );
-  hostel.associate = function(models) {
+
+  classroom.associate = function(models) {
     // associations can be defined here
   };
-  return hostel;
+
+  return classroom;
 };

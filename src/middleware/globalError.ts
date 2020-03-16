@@ -22,6 +22,13 @@ function GlobalError(err: HttpException, req: Request, res: Response, next: Next
     });
   }
 
+  if (err.name === "UnauthorizedError") {
+    return res.status(401).json({
+      status: "failed",
+      message: "Unauthorized token or invalid !"
+    });
+  }
+
   console.log(err);
   return res.status(500).json({
     status: "error",

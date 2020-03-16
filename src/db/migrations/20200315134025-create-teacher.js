@@ -19,6 +19,9 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false
       },
+      phone: {
+        type: Sequelize.STRING
+      },
       position: {
         type: Sequelize.STRING
       },

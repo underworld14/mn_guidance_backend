@@ -8,7 +8,7 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      teacherId: {
+      teacher_id: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
@@ -26,11 +26,15 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false
       },
+      pin: {
+        type: Sequelize.STRING
+      },
       photo: {
         type: Sequelize.STRING
       },
       role: {
-        type: Sequelize.ENUM("admin", "superadmin")
+        type: Sequelize.ENUM("admin", "superadmin"),
+        defaultValue: "admin"
       },
       created_at: {
         allowNull: false,
