@@ -28,19 +28,19 @@ module.exports = {
         onUpdate: "CASCADE",
         onDelete: "CASCADE"
       },
-      datetime: {
+      date: {
         type: Sequelize.DATEONLY
       },
-      violation_detail: {
-        type: Sequelize.STRING
-      },
       type: {
+        type: Sequelize.ENUM("easy", "medium", "hard")
+      },
+      detail: {
         type: Sequelize.STRING
       },
       punishment: {
         type: Sequelize.STRING
       },
-      on_period: {
+      period: {
         type: Sequelize.STRING
       },
       created_at: {

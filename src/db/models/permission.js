@@ -10,7 +10,6 @@ module.exports = (sequelize, DataTypes) => {
       month: DataTypes.INTEGER,
       reason: DataTypes.STRING,
       destination: DataTypes.STRING,
-      is_approved: DataTypes.STRING,
       status: DataTypes.STRING
     },
     {

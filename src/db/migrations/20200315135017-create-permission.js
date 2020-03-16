@@ -43,9 +43,6 @@ module.exports = {
       destination: {
         type: Sequelize.STRING
       },
-      is_approved: {
-        type: Sequelize.STRING
-      },
       status: {
         type: Sequelize.STRING
       },

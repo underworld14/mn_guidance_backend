@@ -5,11 +5,14 @@ module.exports = (sequelize, DataTypes) => {
     {
       student_id: DataTypes.INTEGER,
       user_id: DataTypes.INTEGER,
-      datetime: DataTypes.DATEONLY,
-      violation_detail: DataTypes.STRING,
-      type: DataTypes.STRING,
+      date: DataTypes.DATEONLY,
+      type: {
+        type: DataTypes.ENUM,
+        values: ["easy", "medium", "hard"]
+      },
+      detail: DataTypes.STRING,
       punishment: DataTypes.STRING,
-      on_period: DataTypes.STRING
+      period: DataTypes.STRING
     },
     {
       underscored: true
