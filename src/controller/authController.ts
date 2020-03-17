@@ -8,7 +8,7 @@ const db = require("../db/models");
 
 class AuthController {
   hashPasword = async (password: string) => {
-    return await bcrypt.hash(password, 12);
+    return await bcrypt.hash(password, 10);
   };
 
   comparePassword = async (inputed: string, realPassword: string) => {
@@ -64,7 +64,7 @@ class AuthController {
   });
 
   setPin = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
-    let validation = new Validator(req.body, {
+    const validation = new Validator(req.body, {
       pin: "required|digits:6"
     });
 
@@ -72,16 +72,44 @@ class AuthController {
       return next(new HttpException("validation fail", 400, validation.errors));
     }
 
+    const query = await db.user.findOne({ where: { id: req.user.id } });
+
+    if (query.dataValues.pin) {
+      return next(new HttpException("Pin already owned, please go to reset route !", 400));
+    }
+
     const newPin = await this.hashPasword(req.body.pin.toString());
-    const data = await db.user.update({ pin: newPin }, { where: { id: req.user.id } });
-    console.log(data);
-    const user = data.dataValues;
+    await db.user.update({ pin: newPin }, { where: { id: req.user.id } });
 
     res.status(201).json({
       status: "success",
-      data: {
-        ...user
-      }
+      message: "pin sucessfull set"
+    });
+  });
+
+  resetPin = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+    const validation = new Validator(req.body, {
+      password: "required",
+      pin: "required|digits:6"
+    });
+
+    if (validation.fails()) {
+      return next(new HttpException("validation fail", 400, validation.errors));
+    }
+
+    const query = await db.user.findOne({ where: { id: req.user.id } });
+    if (!query) next(new HttpException("incorrect Password !", 401));
+    const user = query.dataValues;
+
+    const testPassword = await this.comparePassword(req.body.password, user.password);
+    if (!testPassword) next(new HttpException("incorrect Password !", 401));
+
+    const newPin = await this.hashPasword(req.body.pin.toString());
+    await db.user.update({ pin: newPin }, { where: { id: req.user.id } });
+
+    res.status(201).json({
+      status: "success",
+      message: "pin sucessfull changed"
     });
   });
 }
