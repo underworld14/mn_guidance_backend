@@ -3,9 +3,17 @@ import catchAsync from "../utils/catchAsync";
 // import HttpException from "../utils/HttpException";
 const db = require("../db/models");
 
-class AuthController {
+class TeacherController {
   index = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
-    const data = await db.teacher.findAll();
+    const data = await db.teacher.findAll({
+      attributes: { exclude: ["createdAt", "updatedAt"] },
+      include: [
+        {
+          model: db.classroom,
+          attributes: ["id", "name", "place"]
+        }
+      ]
+    });
 
     res.status(200).json({
       status: "success",
@@ -14,4 +22,4 @@ class AuthController {
   });
 }
 
-export default new AuthController();
+export default new TeacherController();

@@ -15,6 +15,7 @@ module.exports = (sequelize, DataTypes) => {
   );
   teacher.associate = function(models) {
     // associations can be defined here
+    teacher.hasOne(models.classroom);
   };
   return teacher;
 };

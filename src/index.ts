@@ -7,6 +7,7 @@ import morgan from "morgan";
 // router
 import AuthRoutes from "./routes/authRouter";
 import TeacherRoutes from "./routes/teacherRoutes";
+import ClassRoomRoutes from "./routes/classRoomRoutes";
 
 // common
 import HttpException from "./utils/HttpException";
@@ -40,6 +41,7 @@ class App {
 
     this.app.use("/v1/auth", AuthRoutes);
     this.app.use("/v1/teacher", TeacherRoutes);
+    this.app.use("/v1/classroom", ClassRoomRoutes);
   }
 
   protected Handler404(): void {
