@@ -2,16 +2,26 @@
 import BaseRouter from "./baseRouter";
 
 import roomController from "../controller/roomController";
+import { Router } from "express";
 
 class RoomRoutes extends BaseRouter {
-  routes(): void {
-    this.router.route("/").get(roomController.index);
-    // .post(roomController.store);
+  constructor() {
+    super();
+    this.router = Router({ mergeParams: true });
+    this.routes();
+  }
 
-    // this.router.route("/:id");
-    // // .get(roomController.show)
-    // // .patch(roomController.update)
-    // // .delete(roomController.remove);
+  routes(): void {
+    this.router
+      .route("/")
+      .get(roomController.index)
+      .post(roomController.store);
+
+    this.router
+      .route("/:id")
+      .get(roomController.show)
+      .patch(roomController.update)
+      .delete(roomController.remove);
   }
 }
 
