@@ -16,6 +16,10 @@ module.exports = (sequelize, DataTypes) => {
     // associations can be defined here
     // classroom.hasOne(models.teacher);
     classroom.belongsTo(models.teacher);
+
+    classroom.hasMany(models.student, {
+      foreignKey: "class_id"
+    });
   };
 
   return classroom;

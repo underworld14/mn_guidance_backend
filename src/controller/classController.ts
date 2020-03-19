@@ -29,6 +29,9 @@ class ClassController {
       include: [
         {
           model: db.teacher
+        },
+        {
+          model: db.student
         }
       ]
     });

@@ -24,8 +24,9 @@ class HostelController {
   });
 
   show = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
-    const data = await db.hostel.findOne({
+    const hostel = await db.hostel.findOne({
       where: { id: req.params.id },
+      attributes: ["id", "name"],
       include: [
         {
           model: db.teacher,
@@ -34,12 +35,42 @@ class HostelController {
         {
           model: db.room,
           attributes: ["id", "name"]
+          // include: {
+          //   model: db.student,
+          //   attributes: ["id", "name", "district"],
+          //   include: {
+          //     model: db.classroom,
+          //     attributes: ["id", "name"]
+          //   }
+          // }
         }
       ]
     });
+
+    const students = await db.student.findAll({
+      attributes: ["id", "name", "district"],
+      include: [
+        {
+          model: db.room,
+          where: { hostel_id: req.params.id },
+          attributes: ["id", "name"]
+        },
+        {
+          model: db.classroom,
+          attributes: ["id", "name"]
+        }
+      ]
+    });
+
     res.status(200).json({
       status: "success",
-      data
+      data: {
+        hostel,
+        students: {
+          total: students.length,
+          students
+        }
+      }
     });
   });
 
