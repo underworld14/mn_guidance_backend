@@ -10,23 +10,21 @@ module.exports = {
       },
       class_id: {
         type: Sequelize.INTEGER,
-        allowNull: false,
         references: {
           model: "classrooms",
           key: "id"
         },
         onUpdate: "CASCADE",
-        onDelete: "CASCADE"
+        onDelete: "SET NULL"
       },
       room_id: {
         type: Sequelize.INTEGER,
-        allowNull: false,
         references: {
           model: "rooms",
           key: "id"
         },
         onUpdate: "CASCADE",
-        onDelete: "CASCADE"
+        onDelete: "SET NULL"
       },
       nis: {
         type: Sequelize.INTEGER
@@ -34,6 +32,9 @@ module.exports = {
       name: {
         type: Sequelize.STRING,
         allowNull: false
+      },
+      guardian: {
+        type: Sequelize.STRING
       },
       district: {
         type: Sequelize.STRING

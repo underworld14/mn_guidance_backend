@@ -36,6 +36,9 @@ module.exports = {
         type: Sequelize.ENUM("admin", "superadmin"),
         defaultValue: "admin"
       },
+      device_token: {
+        type: Sequelize.STRING
+      },
       created_at: {
         allowNull: false,
         type: Sequelize.DATE

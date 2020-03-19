@@ -12,7 +12,8 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.ENUM,
         values: ["admin", "superadmin"],
         defaultValue: "admin"
-      }
+      },
+      device_token: DataTypes.STRING
     },
     {
       underscored: true
