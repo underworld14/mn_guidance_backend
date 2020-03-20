@@ -35,14 +35,6 @@ class HostelController {
         {
           model: db.room,
           attributes: ["id", "name"]
-          // include: {
-          //   model: db.student,
-          //   attributes: ["id", "name", "district"],
-          //   include: {
-          //     model: db.classroom,
-          //     attributes: ["id", "name"]
-          //   }
-          // }
         }
       ]
     });

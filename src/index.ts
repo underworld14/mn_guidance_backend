@@ -13,6 +13,7 @@ import AuthRoutes from "./routes/authRouter";
 import TeacherRoutes from "./routes/teacherRoutes";
 import ClassRoomRoutes from "./routes/classRoomRoutes";
 import hostelRoutes from "./routes/hostelRoutes";
+import studentRoutes from "./routes/studentRoutes";
 
 class App {
   public app: Application;
@@ -44,6 +45,7 @@ class App {
     this.app.use("/v1/teacher", TeacherRoutes);
     this.app.use("/v1/classroom", ClassRoomRoutes);
     this.app.use("/v1/hostel", hostelRoutes);
+    this.app.use("/v1/student", studentRoutes);
   }
 
   protected Handler404(): void {
