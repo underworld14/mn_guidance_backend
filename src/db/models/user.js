@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
       photo: DataTypes.STRING,
       role: {
         type: DataTypes.ENUM,
-        values: ["admin", "superadmin"],
+        values: ["admin", "supervisor", "superadmin"],
         defaultValue: "admin"
       },
       device_token: DataTypes.STRING

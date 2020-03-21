@@ -33,7 +33,7 @@ module.exports = {
         type: Sequelize.STRING
       },
       role: {
-        type: Sequelize.ENUM("admin", "superadmin"),
+        type: Sequelize.ENUM("admin", "supervisor", "superadmin"),
         defaultValue: "admin"
       },
       device_token: {

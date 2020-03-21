@@ -28,6 +28,10 @@ module.exports = {
         onUpdate: "CASCADE",
         onDelete: "CASCADE"
       },
+      type: {
+        type: Sequelize.ENUM("gohome", "gooutside", "gotreatment", "other"),
+        defaultValue: "other"
+      },
       time_begin: {
         type: Sequelize.DATE
       },

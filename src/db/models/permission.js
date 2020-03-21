@@ -5,6 +5,11 @@ module.exports = (sequelize, DataTypes) => {
     {
       student_id: DataTypes.INTEGER,
       user_id: DataTypes.INTEGER,
+      type: {
+        type: DataTypes.ENUM,
+        values: ["gohome", "gooutside", "gotreatment", "other"],
+        defaultValue: "other"
+      },
       time_begin: DataTypes.DATE,
       time_end: DataTypes.DATE,
       month: DataTypes.INTEGER,
