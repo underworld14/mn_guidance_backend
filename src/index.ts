@@ -14,6 +14,7 @@ import TeacherRoutes from "./routes/teacherRoutes";
 import ClassRoomRoutes from "./routes/classRoomRoutes";
 import hostelRoutes from "./routes/hostelRoutes";
 import studentRoutes from "./routes/studentRoutes";
+import permissionRoutes from "./routes/permissionRoutes";
 
 class App {
   public app: Application;
@@ -46,6 +47,7 @@ class App {
     this.app.use("/v1/classroom", ClassRoomRoutes);
     this.app.use("/v1/hostel", hostelRoutes);
     this.app.use("/v1/student", studentRoutes);
+    this.app.use("/v1/permission", permissionRoutes);
   }
 
   protected Handler404(): void {
