@@ -29,9 +29,6 @@ module.exports = {
       pin: {
         type: Sequelize.STRING
       },
-      photo: {
-        type: Sequelize.STRING
-      },
       role: {
         type: Sequelize.ENUM("admin", "supervisor", "superadmin"),
         defaultValue: "admin"

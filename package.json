@@ -20,6 +20,8 @@
     "@types/helmet": "^0.0.45",
     "@types/jsonwebtoken": "^8.3.8",
     "@types/morgan": "^1.9.0",
+    "@types/multer": "^1.4.2",
+    "@types/sharp": "^0.24.0",
     "@types/validator": "^12.0.1",
     "@types/validatorjs": "^3.15.0",
     "nodemon": "^2.0.2",
@@ -35,9 +37,11 @@
     "helmet": "^3.21.3",
     "jsonwebtoken": "^8.5.1",
     "morgan": "^1.9.1",
+    "multer": "^1.4.2",
     "mysql2": "^2.1.0",
     "sequelize": "^5.21.5",
     "sequelize-cli": "^5.5.1",
+    "sharp": "^0.25.2",
     "validatorjs": "^3.18.1"
   }
 }
