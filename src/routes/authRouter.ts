@@ -6,7 +6,6 @@ import AuthController from "../controller/authController";
 
 // middleware
 import { authRequired } from "../middleware/authMiddleware";
-// import { pinValidate } from "../middleware/validateMiddleware";
 
 class AuthRouter extends BaseRouter {
   routes(): void {

@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import sharp from "sharp";
 import catchAsync from "../utils/catchAsync";
-// import HttpException from "../utils/HttpException";
+import HttpException from "../utils/HttpException";
 const db = require("../db/models");
 
 class TeacherController {
@@ -22,7 +22,18 @@ class TeacherController {
     });
   });
 
-  updateUserInfo = catchAsync;
+  updateUserInfo = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+    const user = await db.user.findOne({ where: { id: req.user.id } });
+    console.log(req.file);
+
+    // if (!user) return next(new HttpException("user not found", 400));
+    // await db.teacher.update(req.body, { where: { id: user.dataValues.teacher_id } });
+
+    res.status(201).json({
+      status: "success",
+      message: "data sucessfull updated"
+    });
+  });
 
   processUsrImg = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
     if (!req.file) return next();
