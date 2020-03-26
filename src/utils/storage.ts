@@ -16,7 +16,7 @@ class Storage {
   static uploadImg = multer({
     storage: multer.memoryStorage(),
     fileFilter: (req, file, cb) => {
-      if (req.file.mimetype.startsWith("image")) {
+      if (file.mimetype.startsWith("image")) {
         cb(null, true);
       } else {
         cb(new HttpException("not an image file !", 400));

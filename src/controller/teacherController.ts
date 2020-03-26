@@ -24,10 +24,14 @@ class TeacherController {
 
   updateUserInfo = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
     const user = await db.user.findOne({ where: { id: req.user.id } });
-    console.log(req.file);
+    if (!user) return next(new HttpException("user not found", 400));
 
-    // if (!user) return next(new HttpException("user not found", 400));
-    // await db.teacher.update(req.body, { where: { id: user.dataValues.teacher_id } });
+    if (req.file) {
+      const photoUrl = `${req.protocol}://${req.get("host")}/img/${req.file.filename}`;
+      req.body.photo = photoUrl;
+    }
+
+    await db.teacher.update(req.body, { where: { id: user.dataValues.teacher_id } });
 
     res.status(201).json({
       status: "success",

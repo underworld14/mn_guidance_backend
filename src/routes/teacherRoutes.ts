@@ -1,6 +1,7 @@
 // import { Request, Response } from "express";
 import BaseRouter from "./baseRouter";
 
+import { authRequired } from "../middleware/authMiddleware";
 import TeacherController from "../controller/teacherController";
 import storage from "../utils/storage";
 
@@ -9,7 +10,8 @@ class TeacherRoutes extends BaseRouter {
     this.router.get("/", TeacherController.index);
 
     this.router.patch(
-      "/user/:id",
+      "/updateUser",
+      authRequired,
       storage.uploadImg,
       TeacherController.processUsrImg,
       TeacherController.updateUserInfo
