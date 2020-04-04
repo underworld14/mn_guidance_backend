@@ -36,18 +36,33 @@ class PermissionController {
 
   getAllPermission = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
     // both admin and supervisor (pending permission || on progress );
-    const data = db.permission.findAll({
+    const data = await db.permission.findAll({
       where: {
         [Op.or]: [
           { status: this.PermissionStatus.apply },
           { status: this.PermissionStatus.progress }
         ]
       },
+      include: [
+        {
+          model: db.student,
+          attributes: ["id", "name"]
+        },
+        {
+          model: db.user,
+          attributes: ["id"],
+          include: {
+            model: db.teacher,
+            attributes: ["name"]
+          }
+        }
+      ],
       order: [["id", "DESC"]]
     });
 
     res.status(200).json({
       status: "success",
+      results: data.length,
       data
     });
   });

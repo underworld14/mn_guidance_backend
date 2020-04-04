@@ -23,6 +23,8 @@ module.exports = (sequelize, DataTypes) => {
   );
   permission.associate = function(models) {
     // associations can be defined here
+    permission.belongsTo(models.student);
+    permission.belongsTo(models.user);
   };
   return permission;
 };
