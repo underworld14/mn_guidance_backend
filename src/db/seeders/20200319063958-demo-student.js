@@ -3,12 +3,12 @@ const fs = require("fs");
 
 const read = JSON.parse(fs.readFileSync(`${__dirname}/../source/student.json`, "utf-8"));
 
-let data = read.map(val => {
+let data = read.map((val) => {
   return {
     ...val,
     birthdate: val.birthdate ? new Date(val.birthdate) : null,
     created_at: new Date(),
-    updated_at: new Date()
+    updated_at: new Date(),
   };
 });
 
@@ -29,7 +29,7 @@ module.exports = {
       Return a promise to correctly handle asynchronicity.
 
       Example:
-      return queryInterface.bulkDelete('People', null, {});
-    */
-  }
+      */
+    return queryInterface.bulkDelete("students", null, {});
+  },
 };

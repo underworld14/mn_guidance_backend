@@ -18,7 +18,7 @@ module.exports = {
           phone: "1234567890",
           position: "Bps & Market",
           created_at: new Date(),
-          updated_at: new Date()
+          updated_at: new Date(),
         },
         {
           id: 2,
@@ -28,7 +28,7 @@ module.exports = {
           phone: "1234567890",
           position: "Art Section",
           created_at: new Date(),
-          updated_at: new Date()
+          updated_at: new Date(),
         },
         {
           id: 3,
@@ -38,7 +38,7 @@ module.exports = {
           phone: "1234567890",
           position: "BPS",
           created_at: new Date(),
-          updated_at: new Date()
+          updated_at: new Date(),
         },
         {
           id: 4,
@@ -48,7 +48,7 @@ module.exports = {
           phone: "1234567890",
           position: "BPS",
           created_at: new Date(),
-          updated_at: new Date()
+          updated_at: new Date(),
         },
         {
           id: 5,
@@ -58,7 +58,7 @@ module.exports = {
           phone: "1234567890",
           position: "BPS",
           created_at: new Date(),
-          updated_at: new Date()
+          updated_at: new Date(),
         },
         {
           id: 6,
@@ -68,7 +68,7 @@ module.exports = {
           phone: "1234567890",
           position: "BPS",
           created_at: new Date(),
-          updated_at: new Date()
+          updated_at: new Date(),
         },
         {
           id: 7,
@@ -78,8 +78,8 @@ module.exports = {
           phone: "1234567890",
           position: "BPS",
           created_at: new Date(),
-          updated_at: new Date()
-        }
+          updated_at: new Date(),
+        },
       ],
       {}
     );
@@ -93,6 +93,6 @@ module.exports = {
       Example:
       return queryInterface.bulkDelete('People', null, {});
     */
-    return queryInterface.bulkDelete("People", null, {});
-  }
+    return queryInterface.bulkDelete("teachers", null, {});
+  },
 };

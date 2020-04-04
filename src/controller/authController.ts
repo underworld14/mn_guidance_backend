@@ -23,15 +23,22 @@ class AuthController {
       status: "success",
       data: {
         token,
-        ...user
-      }
+        ...user,
+      },
     });
   });
 
   login = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
     const { email, password } = req.body;
 
-    const data = await db.user.findOne({ where: { email } });
+    const data = await db.user.findOne({
+      where: { email },
+      attributes: { exclude: ["createdAt", "updatedAt", "teacherId"] },
+      include: {
+        model: db.teacher,
+        attributes: { exclude: ["createdAt", "updatedAt"] },
+      },
+    });
     const user = data.dataValues;
 
     if (!user) next(new HttpException("User not found or incorrect Password !", 401));
@@ -45,14 +52,14 @@ class AuthController {
       status: "success",
       data: {
         token,
-        ...user
-      }
+        ...user,
+      },
     });
   });
 
   setPin = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
     const validation = new Validator(req.body, {
-      pin: "required|digits:6"
+      pin: "required|digits:6",
     });
 
     if (validation.fails()) {
@@ -70,14 +77,14 @@ class AuthController {
 
     res.status(201).json({
       status: "success",
-      message: "pin sucessfull set"
+      message: "pin sucessfull set",
     });
   });
 
   resetPin = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
     const validation = new Validator(req.body, {
       password: "required",
-      pin: "required|digits:6"
+      pin: "required|digits:6",
     });
 
     if (validation.fails()) {
@@ -96,7 +103,7 @@ class AuthController {
 
     res.status(201).json({
       status: "success",
-      message: "pin sucessfull changed"
+      message: "pin sucessfull changed",
     });
   });
 }

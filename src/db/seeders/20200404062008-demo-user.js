@@ -7,42 +7,36 @@ module.exports = {
       Return a promise to correctly handle asynchronicity.
 
       Example:
-      */
+      return queryInterface.bulkInsert('People', [{
+        name: 'John Doe',
+        isBetaMember: false
+      }], {});
+    */
+
     return queryInterface.bulkInsert(
-      "hostels",
+      "users",
       [
         {
-          id: 1,
+          teacher_id: 6,
+          email: "ilhamhadi@gmail.com",
+          password: "$2a$10$0VOtlQmeyvyYoAgqxaAqFOMQNGiZA8hRbZ6up.4TPf18YGoiAKDx2",
+          role: "supervisor",
+          created_at: new Date(),
+          updated_at: new Date(),
+        },
+        {
           teacher_id: 1,
-          name: "Indonesia",
+          email: "firman@gmail.com",
+          password: "$2a$10$ODPMKQV1UPY7JvzaqfCQI.2W0t.fhwLSfNzFSqG4p6oubHboscpQO",
+          role: "admin",
           created_at: new Date(),
           updated_at: new Date(),
         },
         {
-          id: 2,
-          teacher_id: 2,
-          name: "Saudi",
-          created_at: new Date(),
-          updated_at: new Date(),
-        },
-        {
-          id: 3,
-          teacher_id: 3,
-          name: "Makkah",
-          created_at: new Date(),
-          updated_at: new Date(),
-        },
-        {
-          id: 4,
-          teacher_id: 4,
-          name: "Syiria",
-          created_at: new Date(),
-          updated_at: new Date(),
-        },
-        {
-          id: 5,
           teacher_id: 5,
-          name: "Sudan",
+          email: "naufaladam@gmail.com",
+          password: "$2a$10$ODPMKQV1UPY7JvzaqfCQI.2W0t.fhwLSfNzFSqG4p6oubHboscpQO",
+          role: "admin",
           created_at: new Date(),
           updated_at: new Date(),
         },
@@ -58,6 +52,6 @@ module.exports = {
 
       Example:
       */
-    return queryInterface.bulkDelete("hostels", null, {});
+    return queryInterface.bulkDelete("announcements", null, {});
   },
 };
