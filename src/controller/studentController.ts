@@ -13,7 +13,7 @@ class StudentController {
     nis: "numeric",
     address: "min:6",
     phone: "min:10",
-    birthdate: "date"
+    birthdate: "date",
   };
 
   index = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
@@ -22,29 +22,29 @@ class StudentController {
       include: [
         {
           model: db.classroom,
-          attributes: ["id", "name"]
+          attributes: ["id", "name"],
         },
         {
           model: db.room,
           attributes: ["id", "name"],
           include: {
             model: db.hostel,
-            attributes: ["id", "name"]
-          }
-        }
+            attributes: ["id", "name"],
+          },
+        },
       ],
       order: [
         [db.classroom, "name", "ASC"],
-        ["name", "ASC"]
-      ]
+        ["name", "ASC"],
+      ],
     };
 
     if (req.query.search) {
       query = {
         where: {
-          name: { [Op.like]: `%${req.query.search}%` }
+          name: { [Op.like]: `%${req.query.search}%` },
         },
-        ...query
+        ...query,
       };
     }
 
@@ -57,7 +57,7 @@ class StudentController {
     res.status(200).json({
       status: "success",
       total: count,
-      data: rows
+      data: rows,
     });
   });
 
@@ -70,8 +70,8 @@ class StudentController {
           attributes: ["id", "name"],
           include: {
             model: db.teacher,
-            attributes: ["id", "name"]
-          }
+            attributes: ["id", "name"],
+          },
         },
         {
           model: db.room,
@@ -81,18 +81,18 @@ class StudentController {
             attributes: ["id", "name"],
             include: {
               model: db.teacher,
-              attributes: ["id", "name"]
-            }
-          }
-        }
-      ]
+              attributes: ["id", "name"],
+            },
+          },
+        },
+      ],
     });
 
     if (!data) return next(new HttpException("Data not found", 400));
 
     res.status(200).json({
       status: "success",
-      data: data
+      data: data,
     });
   });
 
@@ -108,7 +108,7 @@ class StudentController {
     res.status(201).json({
       status: "success",
       message: "Data Successfull written",
-      data: data
+      data: data,
     });
   });
 
@@ -123,7 +123,7 @@ class StudentController {
 
     res.status(201).json({
       status: "success",
-      message: "Data Successfull updated"
+      message: "Data Successfull updated",
     });
   });
 
@@ -132,7 +132,7 @@ class StudentController {
 
     res.status(201).json({
       status: "success",
-      message: "Data Successfull deleted"
+      message: "Data Successfull deleted",
     });
   });
 }
