@@ -4,10 +4,8 @@ import studentController from "../controller/studentController";
 
 class StudentRoutes extends BaseRouter {
   routes(): void {
-    this.router
-      .route("/")
-      .get(studentController.index)
-      .post(studentController.store);
+    this.router.route("/").get(studentController.index).post(studentController.store);
+    this.router.route("/summary").get(studentController.infoSummary);
 
     this.router
       .route("/:id")

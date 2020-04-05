@@ -135,6 +135,33 @@ class StudentController {
       message: "Data Successfull deleted",
     });
   });
+
+  infoSummary = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+    const students = db.student.findAndCountAll({});
+    const permissions = db.permission.findAndCountAll({
+      where: {
+        status: {
+          [Op.or]: ["ON PROGRESS", "LATE"],
+        },
+      },
+      order: [["createdAt", "DESC"]],
+    });
+    const illnesses = db.illness.findAndCountAll({
+      where: { date: new Date() },
+      order: [["createdAt", "DESC"]],
+    });
+
+    const data = await Promise.all([students, permissions, illnesses]);
+
+    res.status(200).json({
+      status: "success",
+      data: {
+        students: data[0].count,
+        permissions: data[1].count,
+        illnesses: data[2].count,
+      },
+    });
+  });
 }
 
 export default new StudentController();
