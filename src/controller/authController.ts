@@ -29,7 +29,7 @@ class AuthController {
   });
 
   login = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
-    const { email, password } = req.body;
+    const email = req.body.email.toLowerCase();
 
     const data = await db.user.findOne({
       where: { email },
@@ -39,12 +39,16 @@ class AuthController {
         attributes: { exclude: ["createdAt", "updatedAt"] },
       },
     });
+
+    if (!data) return next(new HttpException("User not found or incorrect Password !", 401));
+
     const user = data.dataValues;
+    const testPassword = await Security.comparePassword(req.body.password, user.password);
 
-    if (!user) next(new HttpException("User not found or incorrect Password !", 401));
-    const testPassword = await Security.comparePassword(password, user.password);
+    if (!testPassword) {
+      return next(new HttpException("User not found or incorrect Password !", 401));
+    }
 
-    if (!testPassword) next(new HttpException("User not found or incorrect Password !", 401));
     user.password = undefined;
     const token = Security.generateToken({ id: user.id, role: user.role });
 
