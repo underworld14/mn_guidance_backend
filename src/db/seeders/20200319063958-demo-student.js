@@ -1,7 +1,6 @@
 "use strict";
-const fs = require("fs");
 
-const read = JSON.parse(fs.readFileSync(`${__dirname}/../source/student.json`, "utf-8"));
+const read = require("../source/student");
 
 let data = read.map((val) => {
   return {
