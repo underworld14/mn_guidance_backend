@@ -6,7 +6,7 @@ module.exports = {
     password: null,
     database: "mn_guidance",
     host: "127.0.0.1",
-    dialect: "mysql"
+    dialect: "mysql",
   },
   test: {
     username: "root",
@@ -14,14 +14,14 @@ module.exports = {
     database: "database_test",
     host: "127.0.0.1",
     dialect: "mysql",
-    operatorsAliases: false
+    operatorsAliases: false,
   },
   production: {
-    username: "root",
-    password: null,
-    database: "database_production",
-    host: "127.0.0.1",
+    username: "izzadb",
+    password: "helloworld14",
+    database: "mn_guidance",
+    host: "192.168.1.15",
     dialect: "mysql",
-    operatorsAliases: false
-  }
+    operatorsAliases: false,
+  },
 };

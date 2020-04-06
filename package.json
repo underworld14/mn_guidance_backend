@@ -6,7 +6,8 @@
   "scripts": {
     "ts": "rm -rf build/ && tsc -w",
     "tsc": "rm -rf build/ && tsc",
-    "dev": "nodemon ./build/server.js"
+    "dev": "nodemon ./build/server.js",
+    "production": "NODE_ENV=production node ./build/server.js"
   },
   "keywords": [],
   "author": "",
