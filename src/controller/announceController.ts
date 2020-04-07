@@ -5,7 +5,16 @@ const db = require("../db/models");
 
 class AnnouncementController {
   index = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
-    const data = await db.announcement.findAll();
+    const data = await db.announcement.findAll({
+      include: {
+        model: db.user,
+        attributes: ["teacherId"],
+        include: {
+          model: db.teacher,
+          attributes: ["id", "name"],
+        },
+      },
+    });
 
     res.status(200).json({
       status: "success",
