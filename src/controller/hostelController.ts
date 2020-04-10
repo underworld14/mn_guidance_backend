@@ -7,19 +7,35 @@ const db = require("../db/models");
 class HostelController {
   index = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
     const data = await db.hostel.findAll({
-      attributes: { exclude: ["createdAt", "updatedAt"] },
+      attributes: ["id", "name"],
       include: [
         {
+          model: db.teacher,
+          attributes: ["id", "name"],
+        },
+        {
           model: db.room,
-          attributes: { exclude: ["createdAt", "updatedAt", "hostelId"] }
-        }
-      ]
+          attributes: ["id", "hostel_id", "name"],
+        },
+      ],
     });
+
+    let results: any = [];
+
+    await Promise.all(
+      data.map(async (val: any, i: number) => {
+        let total = await db.student.count({
+          include: { model: db.room, where: { hostel_id: val.dataValues.id } },
+        });
+        let res = { ...data[i].dataValues, totalStudents: total };
+        results.push(res);
+      })
+    );
 
     res.status(200).json({
       status: "success",
-      result: data.length,
-      data
+      result: results.length,
+      data: results,
     });
   });
 
@@ -30,13 +46,13 @@ class HostelController {
       include: [
         {
           model: db.teacher,
-          attributes: ["id", "name"]
+          attributes: ["id", "name"],
         },
         {
           model: db.room,
-          attributes: ["id", "name"]
-        }
-      ]
+          attributes: ["id", "name"],
+        },
+      ],
     });
 
     const students = await db.student.findAll({
@@ -45,13 +61,13 @@ class HostelController {
         {
           model: db.room,
           where: { hostel_id: req.params.id },
-          attributes: ["id", "name"]
+          attributes: ["id", "name"],
         },
         {
           model: db.classroom,
-          attributes: ["id", "name"]
-        }
-      ]
+          attributes: ["id", "name"],
+        },
+      ],
     });
 
     res.status(200).json({
@@ -60,16 +76,16 @@ class HostelController {
         hostel,
         students: {
           total: students.length,
-          students
-        }
-      }
+          students,
+        },
+      },
     });
   });
 
   store = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
     const validation = new Validator(req.body, {
       teacher_id: "required|numeric",
-      name: "required"
+      name: "required",
     });
 
     if (validation.fails()) {
@@ -79,7 +95,7 @@ class HostelController {
     const data = await db.hostel.create(req.body);
     res.status(200).json({
       status: "success",
-      data
+      data,
     });
   });
 
@@ -87,7 +103,7 @@ class HostelController {
     await db.hostel.update(req.body, { where: { id: req.params.id } });
     res.status(201).json({
       status: "success",
-      message: "Data sucessfull updated !"
+      message: "Data sucessfull updated !",
     });
   });
 
@@ -95,7 +111,7 @@ class HostelController {
     await db.hostel.destroy({ where: { id: req.params.id } });
     res.status(201).json({
       status: "success",
-      message: "Data sucessfull deleted !"
+      message: "Data sucessfull deleted !",
     });
   });
 }

@@ -2,43 +2,60 @@ import { Request, Response, NextFunction } from "express";
 import Validator from "validatorjs";
 import catchAsync from "../utils/catchAsync";
 import HttpException from "../utils/HttpException";
+// const Sequelize = require("sequelize");
 const db = require("../db/models");
 
 class ClassController {
   index = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
     const data = await db.classroom.findAll({
-      attributes: { exclude: ["teacherId", "createdAt", "updatedAt", "teacher_id"] },
+      attributes: ["id", "name", "place"],
       include: [
         {
           model: db.teacher,
-          attributes: ["id", "name", "room"]
-        }
-      ]
+          attributes: ["id", "name", "room"],
+        },
+      ],
     });
+
+    let newData: any = [];
+
+    await Promise.all(
+      data.map(async (val: any, i: number) => {
+        let result = await db.student.count({ where: { class_id: val.dataValues.id } });
+        let total = { ...data[i].dataValues, total: result };
+        newData.push(total);
+      })
+    );
 
     res.status(200).json({
       status: "success",
-      result: data.length,
-      data
+      result: newData.length,
+      data: newData,
     });
   });
 
   show = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
     const data = await db.classroom.findOne({
       where: { id: req.params.id },
+      order: [["students", "room_id", "ASC"]],
       include: [
         {
-          model: db.teacher
+          model: db.teacher,
         },
         {
-          model: db.student
-        }
-      ]
+          model: db.student,
+        },
+      ],
     });
+
+    const results = data.dataValues;
 
     res.status(200).json({
       status: "success",
-      data
+      data: {
+        total: results.students.length,
+        ...results,
+      },
     });
   });
 
@@ -46,7 +63,7 @@ class ClassController {
     const validation = new Validator(req.body, {
       teacher_id: "required|numeric",
       name: "required",
-      place: "required"
+      place: "required",
     });
 
     if (validation.fails()) {
@@ -57,7 +74,7 @@ class ClassController {
 
     res.status(200).json({
       status: "success",
-      data
+      data,
     });
   });
 
@@ -66,7 +83,7 @@ class ClassController {
 
     res.status(201).json({
       status: "success",
-      message: "Data sucessfull updated !"
+      message: "Data sucessfull updated !",
     });
   });
 
@@ -75,7 +92,7 @@ class ClassController {
 
     res.status(201).json({
       status: "success",
-      message: "Data sucessfull deleted !"
+      message: "Data sucessfull deleted !",
     });
   });
 }
