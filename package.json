@@ -4,13 +4,11 @@
   "description": "Express Server for Madinatunnajah Mobile APP, Preview Release",
   "main": "index.js",
   "scripts": {
-    "start": "npm run build && NODE_ENV=production node ./build/server.js",
+    "start": "yarn tsc && node ./build/server.js",
     "ts": "rm -rf build/ && tsc -w",
-    "build": "rm -rf build/ && tsc",
     "dev": "nodemon ./build/server.js",
     "run-migration": "npx sequelize-cli db:migrate",
-    "run-seeders": "npx sequelize-cli db:seed:all",
-    "production": "NODE_ENV=production node ./build/server.js"
+    "run-seeders": "npx sequelize-cli db:seed:all"
   },
   "keywords": [],
   "author": "Yusril Izza Aulia",
