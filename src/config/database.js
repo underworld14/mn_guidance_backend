@@ -17,11 +17,10 @@ module.exports = {
     operatorsAliases: false,
   },
   production: {
-    username: "izzadb",
-    password: "helloworld14",
-    database: "mn_guidance",
-    host: "192.168.1.15",
+    username: "kxsehspftkzeqq",
+    password: "hf99d580e4a6a6b072cf0b7f6bbed8fc7b1fd1d9282554f9612297e11755cf2f7",
+    database: "mdfuu199ko2agdi",
+    host: "ec2-23-20-129-146.compute-1.amazonaws.com",
     dialect: "mysql",
-    operatorsAliases: false,
   },
 };
