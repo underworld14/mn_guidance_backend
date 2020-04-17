@@ -1,16 +1,17 @@
 {
-  "name": "express-typescript",
+  "name": "mn_guidance_server",
   "version": "1.0.0",
-  "description": "",
+  "description": "Express Server for Madinatunnajah Mobile APP, Preview Release",
   "main": "index.js",
   "scripts": {
+    "start": "npm run tsc && NODE_ENV=production node ./build/server.js",
     "ts": "rm -rf build/ && tsc -w",
     "tsc": "rm -rf build/ && tsc",
     "dev": "nodemon ./build/server.js",
     "production": "NODE_ENV=production node ./build/server.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "Yusril Izza Aulia",
   "license": "ISC",
   "devDependencies": {
     "@types/bcryptjs": "^2.4.2",
