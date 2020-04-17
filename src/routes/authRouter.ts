@@ -13,6 +13,7 @@ class AuthRouter extends BaseRouter {
     this.router.post("/login", AuthController.login);
     this.router.post("/setpin", authRequired, AuthController.setPin);
     this.router.patch("/resetpin", authRequired, AuthController.resetPin);
+    this.router.patch("/updatePassword", authRequired, AuthController.updatePassword);
   }
 }
 

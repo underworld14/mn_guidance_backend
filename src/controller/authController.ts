@@ -110,6 +110,35 @@ class AuthController {
       message: "pin sucessfull changed",
     });
   });
+
+  updatePassword = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+    const validation = new Validator(req.body, {
+      oldPassword: "required",
+      newPassword: "required",
+      newPassword2: "required",
+    });
+
+    let { oldPassword, newPassword, newPassword2 } = req.body;
+
+    if (validation.fails()) {
+      return next(new HttpException("validation fail", 400, validation.errors));
+    }
+    if (newPassword !== newPassword2) {
+      return next(new HttpException("please provide match password", 400));
+    }
+
+    const { dataValues: user } = await db.user.findOne({ where: { id: req.user.id } });
+    const check = await Security.comparePassword(oldPassword, user.password);
+    if (!check) return next(new HttpException("wrong password", 400));
+
+    newPassword = await Security.hashPasword(newPassword);
+    await db.user.update({ password: newPassword }, { where: { id: req.user.id } });
+
+    res.status(201).json({
+      status: "success",
+      message: "password sucessfull changed",
+    });
+  });
 }
 
 export default new AuthController();
