@@ -18,8 +18,8 @@ module.exports = {
   },
   production: {
     username: "kxsehspftkzeqq",
-    password: "hf99d580e4a6a6b072cf0b7f6bbed8fc7b1fd1d9282554f9612297e11755cf2f7",
-    database: "mdfuu199ko2agdi",
+    password: "f99d580e4a6a6b072cf0b7f6bbed8fc7b1fd1d9282554f9612297e11755cf2f7",
+    database: "dfuu199ko2agdi",
     host: "ec2-23-20-129-146.compute-1.amazonaws.com",
     dialect: "postgres",
   },
