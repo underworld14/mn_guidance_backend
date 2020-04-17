@@ -4,9 +4,11 @@
   "description": "Express Server for Madinatunnajah Mobile APP, Preview Release",
   "main": "index.js",
   "scripts": {
-    "start": "yarn tsc && node ./build/server.js",
+    "start": "node build/server.js",
+    "build": "rm -rf build/ && tsc",
+    "postinstall": "yarn build",
     "ts": "rm -rf build/ && tsc -w",
-    "dev": "nodemon ./build/server.js",
+    "dev": "nodemon build/server.js",
     "run-migration": "npx sequelize-cli db:migrate",
     "run-seeders": "npx sequelize-cli db:seed:all"
   },
