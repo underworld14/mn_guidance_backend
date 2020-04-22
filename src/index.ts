@@ -8,14 +8,8 @@ import morgan from "morgan";
 import HttpException from "./utils/HttpException";
 import GlobalError from "./middleware/globalError";
 
-// router
-import AuthRoutes from "./routes/authRouter";
-import TeacherRoutes from "./routes/teacherRoutes";
-import ClassRoomRoutes from "./routes/classRoomRoutes";
-import hostelRoutes from "./routes/hostelRoutes";
-import studentRoutes from "./routes/studentRoutes";
-import permissionRoutes from "./routes/permissionRoutes";
-import announceRoutes from "./routes/announceRoutes";
+// routes
+import apiRoutes from "./routes";
 
 class App {
   public app: Application;
@@ -40,16 +34,9 @@ class App {
 
   protected routes(): void {
     this.app.route("/").get((req: Request, res: Response) => {
-      res.send("Typescript Express App");
+      res.send("Madinatunnajah Service App");
     });
-
-    this.app.use("/v1/auth", AuthRoutes);
-    this.app.use("/v1/teacher", TeacherRoutes);
-    this.app.use("/v1/classroom", ClassRoomRoutes);
-    this.app.use("/v1/hostel", hostelRoutes);
-    this.app.use("/v1/student", studentRoutes);
-    this.app.use("/v1/permission", permissionRoutes);
-    this.app.use("/v1/announcement", announceRoutes);
+    this.app.use("/v1", apiRoutes);
   }
 
   protected Handler404(): void {

@@ -12,10 +12,7 @@ class RoomRoutes extends BaseRouter {
   }
 
   routes(): void {
-    this.router
-      .route("/")
-      .get(roomController.index)
-      .post(roomController.store);
+    this.router.route("/").get(roomController.index).post(roomController.store);
 
     this.router
       .route("/:id")
