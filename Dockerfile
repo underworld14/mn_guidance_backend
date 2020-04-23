@@ -11,4 +11,4 @@ RUN npm run build
 ENV NODE_ENV=production
 ENV PORT=4000
 EXPOSE 4000
-CMD ["pm2", "start", "server.js", "--name", "mn-app"]
+CMD ["pm2", "start", "build/server.js", "--name", "mn-app"]
