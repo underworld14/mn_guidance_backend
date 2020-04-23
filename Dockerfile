@@ -1,17 +1,14 @@
 FROM node:lts
 
-# Create app directory
-WORKDIR /app
-
+WORKDIR /usr/src/app
 COPY package.json ./
 
-RUN npm install -g pm2
+RUN npm install
+RUN npm install pm2 -g
 
 COPY . .
-RUN npm install
 RUN npm run build
-
-EXPOSE 6000/tcp
-ENV NODE_ENV production
-ENV PORT 6000
-CMD ["pm2", "start", "build/server.js", "--name", "mn_guidance_backend"]
+ENV NODE_ENV=production
+ENV PORT=4000
+EXPOSE 4000
+CMD ["pm2", "start", "server.js", "--name", "mn-app"]
